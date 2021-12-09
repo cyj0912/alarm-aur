@@ -17,6 +17,8 @@ prepare() {
 package() {
   cp -a root/. $pkgdir/
 
+  rm $pkgdir/etc/systemd/sleep.conf
+
   # On Arch, /lib is symlink to /usr/lib
   if test -d $pkgdir/lib; then
     cp -a $pkgdir/lib/. $pkgdir/usr/lib/
