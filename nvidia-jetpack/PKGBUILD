@@ -1,0 +1,28 @@
+pkgname=nvidia-jetpack
+pkgver=4.6_b199
+pkgrel=1
+pkgdesc='NVIDIA Jetpack Meta Package'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=('nvidia-cuda=4.6_b199' 'nvidia-opencv=4.6_b199' 'nvidia-cudnn8=4.6_b199' 'nvidia-tensorrt=4.6_b199' 'nvidia-visionworks=4.6_b199' 'nvidia-container=4.6_b199' 'nvidia-vpi=4.6_b199' 'nvidia-l4t-jetson-multimedia-api>>32.6_0' 'nvidia-l4t-jetson-multimedia-api<<32.7_0' )
+source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-jetpack/nvidia-jetpack_4.6-b199_arm64.deb')
+sha256sums=('69df11e22e2c8406fe281fe6fc27c7d40a13ed668e508a592a6785d40ea71669')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

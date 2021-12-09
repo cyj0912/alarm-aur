@@ -1,0 +1,28 @@
+pkgname=deepstream-6.0
+pkgver=6.0.0_1
+pkgrel=1
+pkgdesc='Nvidia DeepStreamSDK runtime libraries, development files and samples'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=('cuda-cudart-10-2|cuda_cudart_11_4' 'cuda-cudart-dev-10-2|cuda_cudart_dev_11_4' 'libvisionworks>=1.6.0' 'libvisionworks-dev>=1.6.0' 'libnvinfer8>=8.0.0' 'libnvinfer-dev>=8.0.0' 'libnvparsers8>=8.0.0' 'libnvparsers-dev>=8.0.0' 'libnvonnxparsers8>=8.0.0' 'libnvonnxparsers-dev>=8.0.0' 'libnvinfer-plugin8>=8.0.0' 'libnvinfer-plugin-dev>=8.0.0' 'libnvvpi1>=1.0.13' )
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/d/deepstream-6.0/deepstream-6.0_6.0.0-1_arm64.deb')
+sha256sums=('320927fe83b40bea2da5408f6777985065038c7f1506b2f5d5eaa0bcfc2a1564')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

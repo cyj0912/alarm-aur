@@ -1,0 +1,28 @@
+pkgname=python3-libnvinfer-dev
+pkgver=8.0.1_1+cuda10.2
+pkgrel=1
+pkgdesc='Python 3 development package for TensorRT'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=('python3-libnvinfer=8.0.1_1+cuda10.2' 'libnvinfer-dev=8.0.1_1+cuda10.2' 'libnvinfer-plugin-dev=8.0.1_1+cuda10.2' 'libnvparsers-dev=8.0.1_1+cuda10.2' 'libnvonnxparsers-dev=8.0.1_1+cuda10.2' )
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/t/tensorrt/python3-libnvinfer-dev_8.0.1-1+cuda10.2_arm64.deb')
+sha256sums=('6c8d109d6db85af0c6dde5b8e945e1bd074bc54322c29c708dd5e19bfaf15215')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

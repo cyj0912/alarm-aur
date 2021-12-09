@@ -1,0 +1,28 @@
+pkgname=cuda-nvrtc-dev-10-2
+pkgver=10.2.300_1
+pkgrel=1
+pkgdesc='NVRTC native dev links, headers'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=('cuda-nvrtc-10-2>=10.2.300' )
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/c/cuda-nvrtc/cuda-nvrtc-dev-10-2_10.2.300-1_arm64.deb')
+sha256sums=('bdce95a7a30daf7d1a52a32385c1ee67a8f742126a2f24d82a7b7dd35d012f3f')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

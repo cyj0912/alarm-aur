@@ -1,0 +1,28 @@
+pkgname=nvidia-l4t-weston
+pkgver=32.6.1_20210916211029
+pkgrel=1
+pkgdesc='NVIDIA Weston Package'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=()
+source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-weston/nvidia-l4t-weston_32.6.1-20210916211029_arm64.deb')
+sha256sums=('ab50a872c5fedb6f7f75dbc1b143fc86acd645c52ab27fa42dea486e6c2145ea')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

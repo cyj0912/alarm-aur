@@ -1,0 +1,28 @@
+pkgname=nvidia-l4t-firmware
+pkgver=32.6.1_20210916211029
+pkgrel=1
+pkgdesc='NVIDIA Firmware Package'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=()
+source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-firmware/nvidia-l4t-firmware_32.6.1-20210916211029_arm64.deb')
+sha256sums=('e3a4053a72a11c76d4492b76bc7237bb46585e1e9053a0fdd9ffdb07c8dd75ec')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

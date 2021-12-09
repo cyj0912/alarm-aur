@@ -1,0 +1,28 @@
+pkgname=cuda-cudart-10-2
+pkgver=10.2.300_1
+pkgrel=1
+pkgdesc='CUDA Runtime native Libraries'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=()
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/c/cuda-cudart/cuda-cudart-10-2_10.2.300-1_arm64.deb')
+sha256sums=('e3cd683965f7b2e4a13b27c58754443185dcc545d0f989e52c224840cfde48d1')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

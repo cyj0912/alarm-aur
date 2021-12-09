@@ -1,0 +1,28 @@
+pkgname=libcusolver-10-2
+pkgver=10.3.0.300_1
+pkgrel=1
+pkgdesc='CUDA solver native runtime libraries'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=()
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/libc/libcusolver/libcusolver-10-2_10.3.0.300-1_arm64.deb')
+sha256sums=('31a32e7c7e439bc34331d32b93392d08de6c9893d5083865b93703509d6fb7d6')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}

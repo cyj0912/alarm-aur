@@ -1,0 +1,28 @@
+pkgname=libcublas-dev
+pkgver=10.2.3.300_1
+pkgrel=1
+pkgdesc='CUBLAS native dev links, headers'
+arch=(aarch64)
+url='https://repo.download.nvidia.com/jetson/'
+license=('custom')
+depends=('libcublas10>=10.2.3.300' )
+source=('https://repo.download.nvidia.com/jetson/common/pool/main/libc/libcublas/libcublas-dev_10.2.3.300-1_arm64.deb')
+sha256sums=('f2575fd6c86c9aa8eed0e782d68122d9ba3d1422ebd6e6c06c71bea096c169db')
+
+prepare() {
+  mkdir -p root
+  tar xvf data.tar* -C root
+}
+
+package() {
+  cp -a root/. $pkgdir/
+  # Arch on ARM doesn't use multilib
+  if test -d $pkgdir/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
+    rm -rf $pkgdir/lib/aarch64-linux-gnu
+  fi
+  if test -d $pkgdir/usr/lib/aarch64-linux-gnu; then
+    cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
+  fi
+}
