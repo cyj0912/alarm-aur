@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 import re
 import os
@@ -98,6 +99,12 @@ prepare() {
 
 package() {
   cp -a root/. $pkgdir/
+
+  # On Arch, /lib is symlink to /usr/lib
+  if test -d $pkgdir/lib; then
+    cp -a $pkgdir/lib/. $pkgdir/usr/lib/
+    rm -rf $pkgdir/lib
+  fi
 
   # On Arch, sbin is a symlink to bin
   if test -d $pkgdir/usr/sbin; then
