@@ -5,7 +5,7 @@ pkgdesc='NVIDIA Multimedia Package'
 arch=(aarch64)
 url='https://repo.download.nvidia.com/jetson/'
 license=('custom')
-depends=('nvidia-l4t-cuda=32.6.1_20210916211029|cuda_drivers' 'nvidia-l4t-multimedia-utils=32.6.1_20210916211029' )
+depends=('nvidia-l4t-cuda=32.6.1_20210916211029' 'nvidia-l4t-multimedia-utils=32.6.1_20210916211029' )
 source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-multimedia/nvidia-l4t-multimedia_32.6.1-20210916211029_arm64.deb')
 sha256sums=('3bef951a6ffac09dd412714f7de51895afd8e19b3f782ce448d473746867cbf1')
 
