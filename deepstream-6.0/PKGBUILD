@@ -16,6 +16,13 @@ prepare() {
 
 package() {
   cp -a root/. $pkgdir/
+
+  # On Arch, sbin is a symlink to bin
+  if test -d $pkgdir/usr/sbin; then
+    cp -a $pkgdir/usr/sbin/. $pkgdir/usr/bin/
+    rm -rf $pkgdir/usr/sbin
+  fi
+
   # Arch on ARM doesn't use multilib
   if test -d $pkgdir/lib/aarch64-linux-gnu; then
     cp -a $pkgdir/lib/aarch64-linux-gnu/. $pkgdir/lib/
