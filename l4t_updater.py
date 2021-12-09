@@ -107,8 +107,9 @@ package() {
     cp -a $pkgdir/usr/lib/aarch64-linux-gnu/. $pkgdir/usr/lib/
     rm -rf $pkgdir/usr/lib/aarch64-linux-gnu
   fi
-}"""
-    if True or not os.path.isfile('TAIL'):
+}
+"""
+    if not os.path.isfile('TAIL'):
         with open('TAIL', 'w') as f:
             f.write(tail)
     else:
