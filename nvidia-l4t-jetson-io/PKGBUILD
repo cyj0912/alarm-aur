@@ -5,7 +5,7 @@ pkgdesc='NVIDIA Jetson.IO debian package'
 arch=(aarch64)
 url='https://repo.download.nvidia.com/jetson/'
 license=('custom')
-depends=('nvidia-l4t-kernel>>4.9.253_tegra_32.6_0' 'nvidia-l4t-kernel<<4.9.253_tegra_32.7_0' )
+depends=('nvidia-l4t-kernel>=4.9.253_tegra_32.6_0')
 source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-jetson-io/nvidia-l4t-jetson-io_32.6.1-20210726122000_arm64.deb')
 sha256sums=('84a591c2cfc90c3c73ffcaf710ff11bbda059da70f69c174052eada8226036fc')
 

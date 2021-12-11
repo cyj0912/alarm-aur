@@ -5,7 +5,7 @@ pkgdesc='NVIDIA GST Application files'
 arch=(aarch64)
 url='https://repo.download.nvidia.com/jetson/'
 license=('custom')
-depends=('nvidia-l4t-camera=32.6.1_20210916211029' 'nvidia-l4t-cuda=32.6.1_20210916211029|cuda_drivers' 'nvidia-l4t-multimedia=32.6.1_20210916211029' 'nvidia-l4t-multimedia-utils=32.6.1_20210916211029' )
+depends=('nvidia-l4t-camera=32.6.1_20210916211029' 'nvidia-l4t-cuda=32.6.1_20210916211029' 'nvidia-l4t-multimedia=32.6.1_20210916211029' 'nvidia-l4t-multimedia-utils=32.6.1_20210916211029' )
 source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-gstreamer/nvidia-l4t-gstreamer_32.6.1-20210916211029_arm64.deb')
 sha256sums=('09349648604d6af55f388a6398517c78c0172cc7289e8b2bf1274cabfb373ab3')
 

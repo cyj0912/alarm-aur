@@ -5,7 +5,7 @@ pkgdesc='NVIDIA Init debian package'
 arch=(aarch64)
 url='https://repo.download.nvidia.com/jetson/'
 license=('custom')
-depends=()
+depends=('bridge-utils')
 source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-init/nvidia-l4t-init_32.6.1-20210916211029_arm64.deb')
 sha256sums=('bee82489940152358039b5b7123815620447415121f03843f711a8f4158b23b4')
 

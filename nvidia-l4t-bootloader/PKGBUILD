@@ -5,7 +5,7 @@ pkgdesc='NVIDIA Bootloader Package'
 arch=(aarch64)
 url='https://repo.download.nvidia.com/jetson/'
 license=('custom')
-depends=('nvidia-l4t-tools=32.6.1_20210726122000' 'nvidia-l4t-init>>32.6_0' 'nvidia-l4t-init<<32.7_0' )
+depends=('nvidia-l4t-tools=32.6.1_20210726122000')
 source=('https://repo.download.nvidia.com/jetson/t210/pool/main/n/nvidia-l4t-bootloader/nvidia-l4t-bootloader_32.6.1-20210726122000_arm64.deb')
 sha256sums=('8d10a727ac9311c206c3b98519e3e10ba933ddb315127fa81062017fa4bf5c88')
 
